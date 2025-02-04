@@ -1,4 +1,4 @@
-package bank.p2pbank.global.common;
+package bank.p2pbank.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
