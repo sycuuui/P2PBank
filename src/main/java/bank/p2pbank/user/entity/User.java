@@ -1,4 +1,4 @@
-package bank.p2pbank.user_sevice.entity;
+package bank.p2pbank.user.entity;
 
 import bank.p2pbank.common.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
