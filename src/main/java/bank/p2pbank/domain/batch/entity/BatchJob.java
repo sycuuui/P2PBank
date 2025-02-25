@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.batch.entity;
 
+import bank.p2pbank.domain.batch.enumerate.JobType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
