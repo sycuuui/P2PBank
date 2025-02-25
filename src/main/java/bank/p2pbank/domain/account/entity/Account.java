@@ -1,7 +1,7 @@
-package bank.p2pbank.account.entity;
+package bank.p2pbank.domain.account.entity;
 
-import bank.p2pbank.common.BaseTimeEntity;
-import bank.p2pbank.user.entity.User;
+import bank.p2pbank.global.common.BaseTimeEntity;
+import bank.p2pbank.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

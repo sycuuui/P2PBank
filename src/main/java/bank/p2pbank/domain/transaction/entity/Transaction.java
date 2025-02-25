@@ -1,9 +1,9 @@
-package bank.p2pbank.transaction.entity;
+package bank.p2pbank.domain.transaction.entity;
 
-import bank.p2pbank.account.entity.Account;
-import bank.p2pbank.common.BaseTimeEntity;
-import bank.p2pbank.transaction.enumerate.TransactionStatus;
-import bank.p2pbank.transaction.enumerate.TransactionType;
+import bank.p2pbank.domain.account.entity.Account;
+import bank.p2pbank.global.common.BaseTimeEntity;
+import bank.p2pbank.domain.transaction.enumerate.TransactionStatus;
+import bank.p2pbank.domain.transaction.enumerate.TransactionType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

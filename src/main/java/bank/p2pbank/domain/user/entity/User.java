@@ -1,6 +1,6 @@
-package bank.p2pbank.user.entity;
+package bank.p2pbank.domain.user.entity;
 
-import bank.p2pbank.common.BaseTimeEntity;
+import bank.p2pbank.global.common.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
