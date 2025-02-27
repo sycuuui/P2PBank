@@ -1,5 +1,7 @@
 package bank.p2pbank.global.common;
 
+import bank.p2pbank.global.exception.ErrorCode;
+import bank.p2pbank.global.success.SuccessCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 
@@ -27,10 +29,6 @@ public record ApplicationResponse<T>(
     }
 
     public static ApplicationResponse<Void> error(ErrorCode errorCode) {
-        return new ApplicationResponse<>(errorCode, null);
-    }
-
-    public static ApplicationResponse<Void> error(ErrorCode errorCode, String customMessage) {
-        return new ApplicationResponse<>(new ErrorCode(errorCode.getHttpStatus(), errorCode.getCode(), customMessage), null);
+        return new ApplicationResponse<>(LocalDateTime.now(), errorCode.getCode(), errorCode.getMessage(), null);
     }
 }
