@@ -17,3 +17,6 @@ spring:
   sql:
     init:
       mode: always  # ???? ?? ??
+
+jwt:
+  secret: asjdklfajskldgjlk1j23lk1j5ut893uaww98erun9813uvn49
