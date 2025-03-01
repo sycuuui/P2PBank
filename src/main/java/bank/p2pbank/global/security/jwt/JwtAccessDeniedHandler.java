@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-//접근 권한이 없는 사용자가 접근 시 접근 실패 핸들
+//접근 권한이 없는 사용자가 접근 시 접근 실패 핸들링
 // AccessDeniedHandlerImpl는 HTML 응답을 반환하기 때문에, REST API 서버이므로 커스텀 핸들러 생성
 @Component
 @RequiredArgsConstructor //final 필드에 대한 생성자 자동 생성
