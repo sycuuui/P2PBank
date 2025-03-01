@@ -1,13 +1,19 @@
-package bank.p2pbank.global.security;
+package bank.p2pbank.global.security.jwt;
 
 import bank.p2pbank.domain.user.entity.User;
-import bank.p2pbank.global.security.dto.TokenDto;
+import bank.p2pbank.domain.user.repository.UserRepository;
+import bank.p2pbank.global.exception.ApplicationException;
+import bank.p2pbank.global.exception.ErrorCode;
+import bank.p2pbank.global.security.PrincipalDetails;
+import bank.p2pbank.global.security.jwt.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -20,6 +26,8 @@ public class TokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
     private Key key;
+
+    private final UserRepository userRepository;
 
     // AccessToken (1일)
     private static final long ACCESS_TOKEN_EXPIRATION = 24 * 60 * 60 * 1000L;
@@ -74,5 +82,13 @@ public class TokenProvider {
     // 토큰에서 이메일 추출
     public String getEmail(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Authentication getAuthentication(String token) {
+        String email = getEmail(token);
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new ApplicationException(ErrorCode.NOT_FOUND_EXCEPTION));
+        PrincipalDetails principalDetails = new PrincipalDetails(user);
+
+        return new UsernamePasswordAuthenticationToken(principalDetails, "", principalDetails.getAuthorities());
     }
 }

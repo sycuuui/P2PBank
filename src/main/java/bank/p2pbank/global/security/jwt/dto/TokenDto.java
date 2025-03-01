@@ -1,4 +1,4 @@
-package bank.p2pbank.global.security.dto;
+package bank.p2pbank.global.security.jwt.dto;
 
 import lombok.Builder;
 
