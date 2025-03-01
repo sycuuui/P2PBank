@@ -3,9 +3,11 @@ package bank.p2pbank.global.security;
 import bank.p2pbank.domain.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -28,7 +30,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+ user.getRole()));//ROLE_ 을 앞에 붙이느냐 마냐에 따라서 ROLE과 Authority가 갈린다
+
+        return authorities;
     }
 
     // 사용자의 비밀번호 반환

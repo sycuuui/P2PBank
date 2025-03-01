@@ -38,6 +38,6 @@ public class User extends BaseTimeEntity {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = Role.USER;
+        this.role = Role.GENERAL;
     }
 }
