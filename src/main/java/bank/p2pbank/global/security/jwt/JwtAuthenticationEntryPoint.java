@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-//인증되지 않은 사용자가 접근 시 인증 실패 핸들러
+//인증되지 않은 사용자가 접근 시 인증 실패 처리
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
