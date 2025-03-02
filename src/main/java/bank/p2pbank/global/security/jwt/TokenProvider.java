@@ -130,7 +130,7 @@ public class TokenProvider {
     public Authentication getAuthentication(String token) {
         String email = getEmail(token);
         Role role = getRole(token);
-        User user = userRepository.findUserByEmailAndRole(email,role).orElseThrow(() -> new ApplicationException(ErrorCode.NOT_FOUND_EXCEPTION));
+        User user = userRepository.findUserByEmailAndRoleAndDeletedAtIsNull(email,role).orElseThrow(() -> new ApplicationException(ErrorCode.NOT_FOUND_EXCEPTION));
         PrincipalDetails principalDetails = new PrincipalDetails(user);
 
         return new UsernamePasswordAuthenticationToken(principalDetails, "", principalDetails.getAuthorities());

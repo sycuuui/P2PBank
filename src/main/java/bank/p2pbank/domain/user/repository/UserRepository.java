@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
      * @param role 역할
      * @return Optional<User></User></User>
      */
-    Optional<User> findUserByEmailAndRole(String email, Role role);
+    Optional<User> findUserByEmailAndRoleAndDeletedAtIsNull(String email, Role role);
 }

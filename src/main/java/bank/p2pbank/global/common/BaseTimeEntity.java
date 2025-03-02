@@ -3,12 +3,14 @@ package bank.p2pbank.global.common;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Getter
 @MappedSuperclass //JPA에 공통 엔티티 상속받아 사용, 실제 테이블이 생성되지 않고 하위 엔티티 테이블에서 적용
 @EntityListeners(AuditingEntityListener.class) //JPA Auduting 기능 활성화하여, @CreatedDate와 @LastModifiedDate 자동으로 동작
 public abstract class BaseTimeEntity {

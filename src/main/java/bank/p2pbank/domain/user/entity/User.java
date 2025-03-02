@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.user.entity;
 
+import bank.p2pbank.domain.user.dto.request.RegisterRequest;
 import bank.p2pbank.domain.user.enumerate.Role;
 import bank.p2pbank.global.common.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,10 +35,10 @@ public class User extends BaseTimeEntity {
     private Role role;
 
     @Builder
-    public User(String email, String password, String name) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = Role.GENERAL;
+    public User(RegisterRequest registerRequest) {
+        this.email = registerRequest.email();
+        this.password = registerRequest.password();
+        this.name = registerRequest.name();
+        this.role = registerRequest.role();
     }
 }
