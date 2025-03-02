@@ -8,6 +8,7 @@ import bank.p2pbank.global.exception.ApplicationException;
 import bank.p2pbank.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void register(RegisterRequest registerRequest) {
@@ -31,7 +33,7 @@ public class AuthService {
 
         User user = User.builder()
                 .email(registerRequest.email())
-                .password(registerRequest.password())
+                .password(passwordEncoder.encode(registerRequest.password()))
                 .name(registerRequest.name())
                 .role(role)
                 .build();
