@@ -25,8 +25,8 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     private static final String[] PUBLIC_API = {
-            "**/auth/register",
-            "**/auth/login"
+            "/api/v1/auth/register",
+            "/api/v1/auth/login"
     };
 
     @Bean
