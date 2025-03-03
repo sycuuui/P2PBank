@@ -29,11 +29,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.testcontainers:junit-jupiter:1.19.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation 'org.testcontainers:testcontainers:1.19.0'
-	testImplementation 'org.testcontainers:mysql:1.19.0'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:mysql'
 
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
@@ -63,6 +64,12 @@ dependencies {
 	//validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.testcontainers:testcontainers-bom:1.19.0"
+	}
 }
 
 tasks.named('test') {
