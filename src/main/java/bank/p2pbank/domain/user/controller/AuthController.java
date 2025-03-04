@@ -27,7 +27,7 @@ public class AuthController {
         return ApplicationResponse.success(SuccessCode.CREATED);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ApplicationResponse<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
         TokenDto tokenDto = authService.login(loginRequest);
 
