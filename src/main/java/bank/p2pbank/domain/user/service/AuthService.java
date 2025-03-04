@@ -56,7 +56,7 @@ public class AuthService {
 
         if (user.isEmpty()) {
             log.warn("존재하지 않은 사용자. email={}", loginRequest.email());
-            throw new ApplicationException(ErrorCode.ALREADY_EXIST_EXCEPTION);
+            throw new ApplicationException(ErrorCode.NOT_FOUND_USER_EXCEPTION);
         }
 
         if (!passwordEncoder.matches(loginRequest.password(), user.get().getPassword())) {
