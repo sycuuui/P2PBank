@@ -60,7 +60,7 @@ public class AuthService {
         }
 
         if (!passwordEncoder.matches(loginRequest.password(), user.get().getPassword())) {
-            log.warn("올바르지 않은 비밀번호. email={}", loginRequest.password());
+            log.warn("올바르지 않은 비밀번호. password={}", loginRequest.password());
             throw new ApplicationException(ErrorCode.WRONG_PASSWORD_EXCEPTION);
         }
 
