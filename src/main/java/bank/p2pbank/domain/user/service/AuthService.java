@@ -9,6 +9,7 @@ import bank.p2pbank.global.exception.ApplicationException;
 import bank.p2pbank.global.exception.ErrorCode;
 import bank.p2pbank.global.security.jwt.TokenProvider;
 import bank.p2pbank.global.security.jwt.dto.TokenDto;
+import bank.p2pbank.global.util.redis.RedisClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -24,6 +26,9 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
+    private final RedisClient redisClient;
+
+    private static final String REDIS_REFRESHTOKEN_KEY ="RTK:";
 
     @Transactional
     public void register(RegisterRequest registerRequest) {
@@ -59,6 +64,8 @@ public class AuthService {
         }
 
         TokenDto tokenDto = tokenProvider.createToken(user.get());
+
+        redisClient.setValueWithTTL(REDIS_REFRESHTOKEN_KEY + user.get().getEmail(), tokenDto.refreshToken(), 30L, TimeUnit.DAYS);
 
         return tokenDto;
     }

@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 //Refresh Token 저장 및 관리
 @Component
@@ -46,4 +47,14 @@ public class RedisClient {
         redisTemplate.delete(key);
     }
 
+    /**
+     * refreshToken 저장하는 메소드
+     * @param key - refreshToken(RTK)
+     * @param value -refreshToken(email)
+     * @param ttl - refreshToken
+     * @param unit - 유효 시간
+     */
+    public void setValueWithTTL(String key, String value, long ttl, TimeUnit unit) {
+        redisTemplate.opsForValue().set(key, value, ttl, unit);
+    }
 }
