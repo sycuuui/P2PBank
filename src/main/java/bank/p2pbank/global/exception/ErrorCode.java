@@ -17,11 +17,11 @@ public enum ErrorCode implements BaseResponseCode {
     ALREADY_EXIST_EXCEPTION(HttpStatus.BAD_REQUEST, 2006, "이미 존재하는 리소스입니다."),
     INVALID_SORT_EXCEPTION(HttpStatus.BAD_REQUEST, 2007, "올바르지 않은 정렬 값입니다."),
 
-    // 3000: Auth Error
-    WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3002, "유효하지 않은 토큰입니다."),
-    WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3002, "유효하지 않은 토큰입니다."),
-    LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3003, "로그아웃된 토큰입니다"),
-    WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3004, "유효하지 않은 토큰입니다.");
+    // 3000: Auth Error (3100~)
+    WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3100, "유효하지 않은 비밀번호입니다."),
+    WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3101, "유효하지 않은 토큰입니다."),
+    LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3102, "로그아웃된 토큰입니다"),
+    WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3103, "유효하지 않은 토큰입니다.");
 
     private final HttpStatus httpStatus;
     private final Integer code;

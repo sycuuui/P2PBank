@@ -9,7 +9,10 @@ import org.springframework.http.HttpStatus;
 @ToString
 public enum SuccessCode implements BaseResponseCode {
     SUCCESS(HttpStatus.OK, 1000, "정상적인 요청입니다."),
-    CREATED(HttpStatus.CREATED, 1001, "정상적으로 생성되었습니다.");
+    CREATED(HttpStatus.CREATED, 1001, "정상적으로 생성되었습니다."),
+
+    // 3000: Auth Success (3000~3099)
+    LOGIN(HttpStatus.OK, 3000, "정상적인 로그인 요청입니다.");
 
     private final HttpStatus httpStatus;
     private final Integer code;
