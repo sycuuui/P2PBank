@@ -18,6 +18,7 @@ public enum ErrorCode implements BaseResponseCode {
     INVALID_SORT_EXCEPTION(HttpStatus.BAD_REQUEST, 2007, "올바르지 않은 정렬 값입니다."),
 
     // 3000: Auth Error
+    WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3002, "유효하지 않은 토큰입니다."),
     WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3002, "유효하지 않은 토큰입니다."),
     LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3003, "로그아웃된 토큰입니다"),
     WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3004, "유효하지 않은 토큰입니다.");

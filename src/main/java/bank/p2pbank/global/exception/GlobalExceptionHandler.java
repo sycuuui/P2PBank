@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequiredArgsConstructor
 
 //전역 예외 처리 핸들러
+//ApplicationException을 잡아 ApplicationResponse.error()로 변환
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)

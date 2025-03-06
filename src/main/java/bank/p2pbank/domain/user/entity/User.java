@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.user.entity;
 
+import bank.p2pbank.domain.user.dto.request.RegisterRequest;
 import bank.p2pbank.domain.user.enumerate.Role;
 import bank.p2pbank.global.common.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,7 @@ public class User extends BaseTimeEntity {
     private String email;
 
     @JsonIgnore //JSON 직렬화에서 제외한다
-    @Column(name = "password",nullable = false, columnDefinition = "varchar(255)")
+    @Column(name = "password", nullable = false, columnDefinition = "varchar(255)")
     private String password;
 
     @Column(name = "name", nullable = false, columnDefinition = "varchar(50)")
@@ -34,10 +35,10 @@ public class User extends BaseTimeEntity {
     private Role role;
 
     @Builder
-    public User(String email, String password, String name) {
+    public User(String email, String password, String name, Role role) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = Role.GENERAL;
+        this.role = role;
     }
 }

@@ -10,6 +10,7 @@ public class P2PBankApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(P2PBankApplication.class, args);
+		System.out.println("P2PBank Server Start");
 	}
 
 }

@@ -7,13 +7,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface UserRepository extends JpaRepository<User,Long> {
     /**
-     * email을 기준으로 사용자 찾는다
+     * email,role을 기준으로 사용자 찾는다
      * @param email 이메일
      * @param role 역할
      * @return Optional<User></User></User>
      */
-    Optional<User> findUserByEmailAndRole(String email, Role role);
+    Optional<User> findUserByEmailAndRoleAndDeletedAtIsNull(String email, Role role);
+
+    /**
+     * email 기준으로 사용자 찾는다
+     * @param email 이메일
+     * @return Optional<User></User>
+     */
+    Optional<User> findUserByEmailAndDeletedAtIsNull(String email);
 }
