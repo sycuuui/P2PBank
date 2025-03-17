@@ -27,6 +27,8 @@ public class NHAccount extends BaseTimeEntity {
     @Column(nullable = false)
     private BigDecimal nhBalance = BigDecimal.ZERO;
 
+
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

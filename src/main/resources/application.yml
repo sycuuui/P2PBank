@@ -25,3 +25,7 @@ spring:
 
 jwt:
   secret: asjdklfajskldgjlk1j23lk1j5ut893uaww98erun9813uvn49
+
+nh:
+  openApi:
+    base-uri:
