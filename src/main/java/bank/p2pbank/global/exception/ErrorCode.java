@@ -24,6 +24,14 @@ public enum ErrorCode implements BaseResponseCode {
     LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3102, "로그아웃된 토큰입니다"),
     WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3103, "유효하지 않은 토큰입니다.");
 
+    // 4000: User Error (4100~)
+
+    // 5000: Account Error (5100~)
+
+    // 6000: Batch Error (6100~)
+
+    // 7000: Transaction Error (7100~)
+
     private final HttpStatus httpStatus;
     private final Integer code;
     private final String message;

@@ -44,7 +44,7 @@ public class NHApiService {
         header.put("Iscd", iscd);
         header.put("FintechApsno", "001");  // 기본값
         header.put("ApiSvcCd", "DrawingTransferA");  // 서비스 코드
-        header.put("Istuno", generateTransactionId());  // 거래 ID (고유 값)
+        header.put("IsTuno", generateTransactionId());  // 거래 ID (고유 값)
         header.put("AccessToken", accessToken);  // NH농협 AccessToken
 
         return header;

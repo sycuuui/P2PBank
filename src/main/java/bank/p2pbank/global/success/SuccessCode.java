@@ -12,7 +12,16 @@ public enum SuccessCode implements BaseResponseCode {
     CREATED(HttpStatus.CREATED, 1001, "정상적으로 생성되었습니다."),
 
     // 3000: Auth Success (3000~3099)
-    LOGIN(HttpStatus.OK, 3000, "정상적인 로그인 요청입니다.");
+    LOGIN(HttpStatus.OK, 3000, "정상적인 로그인 요청입니다."),
+
+    // 4000: User Success
+
+    // 5000: Account Success
+    NHACCOUNT_DEPOSITOR(HttpStatus.OK, 5000, "정상적인 농협계좌 예금주 조회 요청입니다.");
+
+    // 6000: Batch Success
+
+    // 7000: Transaction Success
 
     private final HttpStatus httpStatus;
     private final Integer code;
