@@ -1,20 +1,15 @@
 package bank.p2pbank.global.util.openfeign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "NHApiClient", url = "${nh.api.base-uri}")
-public class NHOpenApiClient {
-    @GetMapping("/InquireBalance")
-    NHBalanceResponse inquireBalance(
-            @RequestHeader("ApiNm") String apiName,
-            @RequestHeader("Tsymd") String requestDate,
-            @RequestHeader("Trtm") String requestTime,
-            @RequestHeader("Iscd") String institutionCode,
-            @RequestHeader("FintechApsno") String fintechNumber,
-            @RequestHeader("ApiSvcCd") String apiServiceCode,
-            @RequestHeader("IsTuno") String transactionUniqueNumber,
-            @RequestHeader("AccessToken") String accessToken,
-            @RequestParam("FinAcno") String fintechAccountNumber
-    );
+import java.util.Map;
+
+@FeignClient(name = "NHApiClient", url = "${nhapi.base-uri}")
+public interface NHOpenApiClient {
+    @PostMapping(value = "/InquireDepositorAccountNumber.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> inquireDepositor(@RequestBody Map<String, Object> request);
 }
