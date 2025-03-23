@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.account.service;
 
+import bank.p2pbank.domain.account.dto.response.NHBalanceResponse;
 import bank.p2pbank.domain.account.dto.response.NHDepositorResponse;
 import bank.p2pbank.domain.account.entity.NHAccount;
 import bank.p2pbank.domain.account.repository.NHAccountRepository;
@@ -39,5 +40,14 @@ public class NHAccountService {
                 .build();
 
         nhAccountRepository.save(nhAccount);
+    }
+
+    public String getBalance(User user, String bankCode, String accountNumber) {
+        //농협 open API로 계좌 조회
+        Map<String, Object> depositorBalance = nhApiService.inquireBalance(user.getName(), bankCode, accountNumber);
+        //필요한 데이터 뽑아내기
+        NHBalanceResponse nhBalanceResponse = nhAccountMapper.toNHBalanceResponse(depositorBalance);
+
+        return nhBalanceResponse.balance();
     }
 }

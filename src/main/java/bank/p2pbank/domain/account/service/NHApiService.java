@@ -42,6 +42,21 @@ public class NHApiService {
     }
 
     /**
+     * 계좌 잔액 API 요청
+     */
+    public Map<String, Object> inquireBalance(String userName, String bankCode, String accountNumber){
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("Header",createHeader("InquireBalance"));
+        requestBody.put("Bncd", bankCode);   // 은행 코드 (농협: 011)
+        requestBody.put("Acno", accountNumber);  // 계좌 번호
+        requestBody.put("Dpnm", userName);
+
+        Map<String, Object> response =  nhOpenApiClient.inquireBalance(requestBody);
+
+        return response;
+    }
+
+    /**
      * NH농협 API 공통 Header 생성
      */
     private Map<String, String> createHeader(String apiName) {

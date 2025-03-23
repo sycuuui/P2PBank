@@ -11,4 +11,7 @@ import java.util.Map;
 public interface NHOpenApiClient {
     @PostMapping(value = "/InquireDepositorAccountNumber.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map<String, Object> inquireDepositor(@RequestBody Map<String, Object> request);
+
+    @PostMapping(value = "/InquireBalance.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> inquireBalance(@RequestBody Map<String, Object> request);
 }

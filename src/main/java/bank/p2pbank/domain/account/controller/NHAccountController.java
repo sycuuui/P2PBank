@@ -35,4 +35,23 @@ public class NHAccountController {
         Map<String, Object> response = nhApiService.inquireDepositor(bankCode, accountNumber);
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
     }
+
+    /**
+     * 계좌 잔액 확인
+     */
+    @GetMapping("/balance")
+    public ApplicationResponse<String> inquireBalance(@RequestParam String bankCode, @RequestParam String accountNumber, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String balance = nhAccountService.getBalance(principalDetails.getUser(), bankCode, accountNumber);
+
+        return ApplicationResponse.success(SuccessCode.SUCCESS, balance);
+    }
+
+    /**
+     * 잔액 조회 test API 엔드포인트 - open api 응답 확인용(추후 삭제)
+     */
+    @GetMapping("/test/balance")
+    public ApplicationResponse<Map<String, Object>> inquireBalance(@RequestParam String bankCode, @RequestParam String accountNumber, @RequestParam String userName) {
+        Map<String, Object> response = nhApiService.inquireBalance(userName,bankCode, accountNumber);
+        return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
+    }
 }
