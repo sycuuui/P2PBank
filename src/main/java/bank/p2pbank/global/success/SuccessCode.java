@@ -17,7 +17,7 @@ public enum SuccessCode implements BaseResponseCode {
     // 4000: User Success
 
     // 5000: Account Success
-    NHACCOUNT_DEPOSITOR(HttpStatus.OK, 5000, "정상적인 농협계좌 예금주 조회 요청입니다.");
+    NHACCOUNT_DEPOSITOR(HttpStatus.OK, 5000, "정상적으로 농협계좌 저장되었습니다.");
 
     // 6000: Batch Success
 

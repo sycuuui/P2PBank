@@ -27,7 +27,7 @@ public class SecurityConfig {
     private static final String[] PUBLIC_API = {
             "/api/v1/auth/register",
             "/api/v1/auth/login",
-            "/api/v1/nh/depositor"
+            "/api/v1/nh/test/depositor"
     };
 
     @Bean

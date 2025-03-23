@@ -1,6 +1,6 @@
 package bank.p2pbank.domain.account.service;
 
-import bank.p2pbank.global.util.openfeign.NHOpenApiClient;
+import bank.p2pbank.domain.account.util.NHOpenApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

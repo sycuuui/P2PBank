@@ -15,28 +15,26 @@ import java.math.BigDecimal;
 public class NHAccount extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //JPA에서 엔티티의 기본 키를 자동 생성 //IDENTITY - DB의 AUTO_INCREMENT
-    @Column(nullable = false, name = "id",  columnDefinition = "bigint")
+    @Column(nullable = false, name = "id", columnDefinition = "bigint")
     private Long id;
 
     @Column(nullable = false, unique = true, length = 20)
     private String nhAccountNumber;
 
-    @Column(nullable = false, length = 50)
-    private String bankName;
+    @Column(nullable = false)
+    private String bankCode;
 
     @Column(nullable = false)
-    private BigDecimal nhBalance = BigDecimal.ZERO;
-
-
+    private BigDecimal nhBalance;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Builder
-    public NHAccount(String nhAccountNumber, String bankName, User user) {
+    public NHAccount(String nhAccountNumber, String bankCode, User user) {
         this.nhAccountNumber = nhAccountNumber;
-        this.bankName = bankName;
+        this.bankCode = bankCode;
         this.user = user;
         this.nhBalance = BigDecimal.ZERO;
     }

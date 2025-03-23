@@ -1,4 +1,4 @@
-package bank.p2pbank.global.util.openfeign;
+package bank.p2pbank.domain.account.util;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

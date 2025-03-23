@@ -18,15 +18,16 @@ public enum ErrorCode implements BaseResponseCode {
     INVALID_SORT_EXCEPTION(HttpStatus.BAD_REQUEST, 2007, "올바르지 않은 정렬 값입니다."),
 
     // 3000: Auth Error (3100~)
-    NOT_FOUND_USER_EXCEPTION(HttpStatus.NOT_FOUND, 2001, "존재하지 않는 사용자입니다."),
-    WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3100, "유효하지 않은 비밀번호입니다."),
-    WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3101, "유효하지 않은 토큰입니다."),
-    LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3102, "로그아웃된 토큰입니다"),
-    WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3103, "유효하지 않은 토큰입니다.");
+    NOT_FOUND_USER_EXCEPTION(HttpStatus.NOT_FOUND, 3100, "존재하지 않는 사용자입니다."),
+    WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3101, "유효하지 않은 비밀번호입니다."),
+    WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3102, "유효하지 않은 토큰입니다."),
+    LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3103, "로그아웃된 토큰입니다"),
+    WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3104, "유효하지 않은 토큰입니다."),
 
     // 4000: User Error (4100~)
 
     // 5000: Account Error (5100~)
+    WRONG_DEPOSIT_USER_EXEPTION(HttpStatus.UNAUTHORIZED, 5100, "사용자와 계정주가 일치하지 않습니다.");
 
     // 6000: Batch Error (6100~)
 
