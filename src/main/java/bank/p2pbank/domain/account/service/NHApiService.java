@@ -1,6 +1,8 @@
 package bank.p2pbank.domain.account.service;
 
 import bank.p2pbank.domain.account.util.NHOpenApiClient;
+import bank.p2pbank.global.exception.ApplicationException;
+import bank.p2pbank.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,13 @@ public class NHApiService {
         requestBody.put("Bncd", bankCode);   // 은행 코드 (농협: 011)
         requestBody.put("Acno", accountNumber);  // 계좌 번호
 
-        return nhOpenApiClient.inquireDepositor(requestBody);
+        Map<String, Object> response = nhOpenApiClient.inquireDepositor(requestBody);
+
+        if(response.get("Dpnm")==null || response.get("Acno")==null) {
+            throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_INVALID_VALUE_EXEPTION); // 커스텀 예외
+        }
+
+        return response;
     }
 
     /**

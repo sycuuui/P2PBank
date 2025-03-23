@@ -27,7 +27,8 @@ public enum ErrorCode implements BaseResponseCode {
     // 4000: User Error (4100~)
 
     // 5000: Account Error (5100~)
-    WRONG_DEPOSIT_USER_EXEPTION(HttpStatus.UNAUTHORIZED, 5100, "사용자와 계정주가 일치하지 않습니다.");
+    WRONG_DEPOSIT_USER_EXEPTION(HttpStatus.UNAUTHORIZED, 5100, "사용자와 계정주가 일치하지 않습니다."),
+    WRONG_DEPOSIT_INVALID_VALUE_EXEPTION(HttpStatus.UNAUTHORIZED, 5100, "은행코드 혹은 계좌번호가 올바르게 입력되지 않았습니다.");
 
     // 6000: Batch Error (6100~)
 
