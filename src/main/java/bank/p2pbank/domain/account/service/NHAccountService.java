@@ -27,6 +27,7 @@ public class NHAccountService {
     public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
         String bankcode = nhDepositorRequest.bankCode();
         String accountNumber = nhDepositorRequest.accountNumber();
+        String birth = user.getBirth();
 
         //농협 open API로 예금주 조회
         Map<String, Object> depositor = nhApiService.inquireDepositor(bankcode, accountNumber);
