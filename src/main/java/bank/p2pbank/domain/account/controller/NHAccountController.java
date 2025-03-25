@@ -8,6 +8,7 @@ import bank.p2pbank.global.common.ApplicationResponse;
 import bank.p2pbank.global.security.PrincipalDetails;
 import bank.p2pbank.global.success.SuccessCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class NHAccountController {
      * 예금주 조회 API 엔드포인트
      */
     @PostMapping("/depositor")
-    public ApplicationResponse<Void> saveDepositor(NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ApplicationResponse<Void> saveDepositor(@RequestBody NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         nhAccountService.registerAccount(principalDetails.getUser(), nhDepositorRequest);
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR);
     }
@@ -42,7 +43,7 @@ public class NHAccountController {
      * 계좌 잔액 확인
      */
     @GetMapping("/balance")
-    public ApplicationResponse<String> inquireBalance(NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ApplicationResponse<String> inquireBalance(@RequestBody NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String balance = nhAccountService.getBalance(principalDetails.getUser(),nhDepositorRequest);
 
         return ApplicationResponse.success(SuccessCode.SUCCESS, balance);
@@ -60,9 +61,18 @@ public class NHAccountController {
     /**
      * 핀어카운트 직접발급 test API 엔드포인트 - open api 응답 확인용(추후 삭제)
      */
-    @PostMapping("/test/openFinAccountDirect")
+    @GetMapping("/test/openFinAccountDirect")
     public ApplicationResponse<Map<String, Object>> openFinAccountDirect(@RequestBody OpenFinAccountDirectRequest openFinAccountDirectRequest) {
         Map<String, Object> response = nhApiService.openFinAccountDirect("Y",openFinAccountDirectRequest.birthbrno(), openFinAccountDirectRequest.bankCode(), openFinAccountDirectRequest.accountNumber());
+        return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
+    }
+
+    /**
+     * 핀어카운트 직접발급 확인 test API 엔드포인트 - open api 응답 확인용(추후 삭제)
+     */
+    @GetMapping("/test/checkOpenFinAccountDirect")
+    public ApplicationResponse<Map<String, Object>> checkOpenFinAccountDirect(@RequestParam String registerNumber,@RequestParam String birth) {
+        Map<String, Object> response = nhApiService.checkOpenFinAccountDirect(registerNumber, birth);
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
     }
 }

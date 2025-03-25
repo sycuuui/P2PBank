@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
-import java.util.Optional;
+
 
 @Slf4j
 @Service
@@ -27,7 +27,7 @@ public class NHAccountService {
 
     @Transactional
     public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
-        String bankcode = nhDepositorRequest.bankCode();
+        String bankcode = nhDepositorRequest.bankcode();
         String accountNumber = nhDepositorRequest.accountNumber();
         String birth = user.getBirth();
 
@@ -62,7 +62,7 @@ public class NHAccountService {
     }
 
     public String getBalance(User user, NHDepositorRequest nhDepositorRequest) {
-        String bankcode = nhDepositorRequest.bankCode();
+        String bankcode = nhDepositorRequest.bankcode();
         String accountNumber = nhDepositorRequest.accountNumber();
 
         //농협 open API로 계좌 조회
