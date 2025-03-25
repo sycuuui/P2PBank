@@ -12,6 +12,7 @@ import bank.p2pbank.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class NHAccountService {
     private final NHAccountMapper nhAccountMapper;
     private final NHAccountRepository nhAccountRepository;
 
+    @Transactional
     public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
         String bankcode = nhDepositorRequest.bankCode();
         String accountNumber = nhDepositorRequest.accountNumber();
@@ -46,11 +48,13 @@ public class NHAccountService {
         //finAccount 확인
         Map<String, Object> checkOpenFinAccount = nhApiService.checkOpenFinAccountDirect(registrationNumber, birth);
         //필요한 데이터 뽑아내기(등록번호)
-        String finAccount = nhAccountMapper.toNHFinAccountResponse(checkOpenFinAccount);
+        String finAccount = nhAccountMapper.toCheckNHFinAccountResponse(checkOpenFinAccount);
 
         NHAccount nhAccount = NHAccount.builder()
                 .bankCode(nhDepositorResponse.code())
                 .nhAccountNumber(nhDepositorResponse.accountNumber())
+                .finAccount(finAccount)
+                .registrationNumber(registrationNumber)
                 .user(user)
                 .build();
 

@@ -24,6 +24,9 @@ public class NHAccount extends BaseTimeEntity {
     @Column(nullable = false, unique = true, length = 30)
     private String finAccount;
 
+    @Column(nullable = false, unique = true, length = 30)
+    private String registrationNumber;
+
     @Column(nullable = false)
     private String bankCode;
 
@@ -35,9 +38,10 @@ public class NHAccount extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public NHAccount(String nhAccountNumber, String finAccount, String bankCode, User user) {
+    public NHAccount(String nhAccountNumber, String finAccount, String registrationNumber, String bankCode, User user) {
         this.nhAccountNumber = nhAccountNumber;
         this.finAccount = finAccount;
+        this.registrationNumber = registrationNumber;
         this.bankCode = bankCode;
         this.user = user;
         this.nhBalance = BigDecimal.ZERO;
