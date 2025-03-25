@@ -9,9 +9,15 @@ import java.util.Map;
 
 @FeignClient(name = "NHOpenApi", url = "${nhapi.base-uri}")
 public interface NHOpenApiClient {
+    //계좌정보 확인
     @PostMapping(value = "/InquireDepositorAccountNumber.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map<String, Object> inquireDepositor(@RequestBody Map<String, Object> request);
 
+    //잔액 확인
     @PostMapping(value = "/InquireBalance.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map<String, Object> inquireBalance(@RequestBody Map<String, Object> request);
+
+    //finAccount 발급
+    @PostMapping(value = "/OpenFinAccountDirect.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> OpenFinAccountDirect(@RequestBody Map<String, Object> request);
 }

@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.account.controller;
 
+import bank.p2pbank.domain.account.dto.request.OpenFinAccountDirectRequest;
 import bank.p2pbank.domain.account.service.NHAccountService;
 import bank.p2pbank.domain.account.service.NHApiService;
 import bank.p2pbank.global.common.ApplicationResponse;
@@ -52,6 +53,15 @@ public class NHAccountController {
     @GetMapping("/test/balance")
     public ApplicationResponse<Map<String, Object>> inquireBalance(@RequestParam String bankCode, @RequestParam String accountNumber, @RequestParam String userName) {
         Map<String, Object> response = nhApiService.inquireBalance(userName,bankCode, accountNumber);
+        return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
+    }
+
+    /**
+     * 핀어카운트 직접발급 test API 엔드포인트 - open api 응답 확인용(추후 삭제)
+     */
+    @PostMapping("/test/openFinAccountDirect")
+    public ApplicationResponse<Map<String, Object>> openFinAccountDirect(@RequestBody OpenFinAccountDirectRequest openFinAccountDirectRequest) {
+        Map<String, Object> response = nhApiService.OpenFinAccountDirect("Y",openFinAccountDirectRequest.birthbrno(), openFinAccountDirectRequest.bankCode(), openFinAccountDirectRequest.accountNumber());
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
     }
 }

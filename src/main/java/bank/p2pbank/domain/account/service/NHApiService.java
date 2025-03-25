@@ -57,6 +57,26 @@ public class NHApiService {
     }
 
     /**
+     * FinAccount 직접발금
+     */
+    public Map<String, Object> OpenFinAccountDirect(String isWithdrawalAccount, String birth, String bankCode, String accountNumber){
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("Header",createHeader("OpenFinAccountDirect"));
+        requestBody.put("DrtrRgyn", isWithdrawalAccount); //출금이체 등록 여부
+        requestBody.put("BrdtBrno", birth); //생년월일(사업자번호) 개인:YYYYMMDD, 기업: 사업자 번호
+        requestBody.put("Bncd", bankCode);   // 은행 코드 (농협: 011)
+        requestBody.put("Acno", accountNumber);  // 계좌 번호
+
+        Map<String, Object> response =  nhOpenApiClient.OpenFinAccountDirect(requestBody);
+
+        if(response.get("Rgno")==null) {
+            throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_INVALID_VALUE_EXEPTION); // 커스텀 예외
+        }
+
+        return response;
+    }
+
+    /**
      * NH농협 API 공통 Header 생성
      */
     private Map<String, String> createHeader(String apiName) {
