@@ -61,7 +61,7 @@ public class NHAccountController {
      */
     @PostMapping("/test/openFinAccountDirect")
     public ApplicationResponse<Map<String, Object>> openFinAccountDirect(@RequestBody OpenFinAccountDirectRequest openFinAccountDirectRequest) {
-        Map<String, Object> response = nhApiService.OpenFinAccountDirect("Y",openFinAccountDirectRequest.birthbrno(), openFinAccountDirectRequest.bankCode(), openFinAccountDirectRequest.accountNumber());
+        Map<String, Object> response = nhApiService.openFinAccountDirect("Y",openFinAccountDirectRequest.birthbrno(), openFinAccountDirectRequest.bankCode(), openFinAccountDirectRequest.accountNumber());
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR, response);
     }
 }

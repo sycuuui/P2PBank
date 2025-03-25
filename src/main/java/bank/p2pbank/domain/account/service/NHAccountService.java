@@ -33,6 +33,16 @@ public class NHAccountService {
             throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_USER_EXEPTION);
         }
 
+        //finAccount 등록
+        Map<String, Object> openFinAccount = nhApiService.openFinAccountDirect("Y", birth, bankCode, accountNumber);
+        //필요한 데이터 뽑아내기(등록번호)
+        String registrationNumber = nhAccountMapper.toNHFinAccountResponse(openFinAccount);
+
+        //finAccount 확인
+        Map<String, Object> checkOpenFinAccount = nhApiService.checkOpenFinAccountDirect(registrationNumber, birth);
+        //필요한 데이터 뽑아내기(등록번호)
+        String finAccount = nhAccountMapper.toNHFinAccountResponse(checkOpenFinAccount);
+
         NHAccount nhAccount = NHAccount.builder()
                 .bankCode(nhDepositorResponse.code())
                 .nhAccountNumber(nhDepositorResponse.accountNumber())

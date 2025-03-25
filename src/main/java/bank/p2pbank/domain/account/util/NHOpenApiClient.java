@@ -20,4 +20,9 @@ public interface NHOpenApiClient {
     //finAccount 발급
     @PostMapping(value = "/OpenFinAccountDirect.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
     Map<String, Object> OpenFinAccountDirect(@RequestBody Map<String, Object> request);
+
+    //finAccount 발급확인
+    @PostMapping(value = "/CheckOpenFinAccountDirect.nh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> CheckOpenFinAccountDirect(@RequestBody Map<String, Object> request);
+
 }

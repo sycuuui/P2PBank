@@ -43,8 +43,15 @@ public class NHAccountMapper {
 
     public String toNHFinAccountResponse(Map<String, Object> response) {
         try {
-
             return (String) response.get("Rgno");
+        } catch (Exception e) {
+            throw new RuntimeException("예금주 조회 응답 데이터 변환 실패");
+        }
+    }
+
+    public String toCheckNHFinAccountResponse(Map<String, Object> response) {
+        try {
+            return (String) response.get("FinAcno");
         } catch (Exception e) {
             throw new RuntimeException("예금주 조회 응답 데이터 변환 실패");
         }

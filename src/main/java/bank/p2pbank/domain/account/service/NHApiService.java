@@ -57,9 +57,9 @@ public class NHApiService {
     }
 
     /**
-     * FinAccount 직접발금
+     * FinAccount 직접발급
      */
-    public Map<String, Object> OpenFinAccountDirect(String isWithdrawalAccount, String birth, String bankCode, String accountNumber){
+    public Map<String, Object> openFinAccountDirect(String isWithdrawalAccount, String birth, String bankCode, String accountNumber){
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("Header",createHeader("OpenFinAccountDirect"));
         requestBody.put("DrtrRgyn", isWithdrawalAccount); //출금이체 등록 여부
@@ -70,6 +70,24 @@ public class NHApiService {
         Map<String, Object> response =  nhOpenApiClient.OpenFinAccountDirect(requestBody);
 
         if(response.get("Rgno")==null) {
+            throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_INVALID_VALUE_EXEPTION); // 커스텀 예외
+        }
+
+        return response;
+    }
+
+    /**
+     * FinAccount 직접발급
+     */
+    public Map<String, Object> checkOpenFinAccountDirect(String registrationNumber, String birth){
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("Header",createHeader("CheckOpenFinAccountDirect"));
+        requestBody.put("Rgno", registrationNumber); //등록번호
+        requestBody.put("BrdtBrno", birth); //생년월일(사업자번호) 개인:YYYYMMDD, 기업: 사업자 번호
+
+        Map<String, Object> response =  nhOpenApiClient.OpenFinAccountDirect(requestBody);
+
+        if(response.get("FinAcno")==null) {
             throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_INVALID_VALUE_EXEPTION); // 커스텀 예외
         }
 
