@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.account.controller;
 
+import bank.p2pbank.domain.account.dto.request.NHDepositorRequest;
 import bank.p2pbank.domain.account.dto.request.OpenFinAccountDirectRequest;
 import bank.p2pbank.domain.account.service.NHAccountService;
 import bank.p2pbank.domain.account.service.NHApiService;
@@ -23,8 +24,8 @@ public class NHAccountController {
      * 예금주 조회 API 엔드포인트
      */
     @PostMapping("/depositor")
-    public ApplicationResponse<Void> saveDepositor(@RequestParam String bankCode, @RequestParam String accountNumber, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        nhAccountService.registerAccount(principalDetails.getUser(), bankCode, accountNumber);
+    public ApplicationResponse<Void> saveDepositor(NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        nhAccountService.registerAccount(principalDetails.getUser(), nhDepositorRequest);
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR);
     }
 
@@ -41,8 +42,8 @@ public class NHAccountController {
      * 계좌 잔액 확인
      */
     @GetMapping("/balance")
-    public ApplicationResponse<String> inquireBalance(@RequestParam String bankCode, @RequestParam String accountNumber, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String balance = nhAccountService.getBalance(principalDetails.getUser(), bankCode, accountNumber);
+    public ApplicationResponse<String> inquireBalance(NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String balance = nhAccountService.getBalance(principalDetails.getUser(),nhDepositorRequest);
 
         return ApplicationResponse.success(SuccessCode.SUCCESS, balance);
     }

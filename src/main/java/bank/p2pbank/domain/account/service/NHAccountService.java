@@ -1,5 +1,6 @@
 package bank.p2pbank.domain.account.service;
 
+import bank.p2pbank.domain.account.dto.request.NHDepositorRequest;
 import bank.p2pbank.domain.account.dto.response.NHBalanceResponse;
 import bank.p2pbank.domain.account.dto.response.NHDepositorResponse;
 import bank.p2pbank.domain.account.entity.NHAccount;
@@ -23,9 +24,12 @@ public class NHAccountService {
     private final NHAccountMapper nhAccountMapper;
     private final NHAccountRepository nhAccountRepository;
 
-    public void registerAccount(User user, String bankCode, String accountNumber) {
+    public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
+        String bankcode = nhDepositorRequest.bankCode();
+        String accountNumber = nhDepositorRequest.accountNumber();
+
         //농협 open API로 예금주 조회
-        Map<String, Object> depositor = nhApiService.inquireDepositor(bankCode, accountNumber);
+        Map<String, Object> depositor = nhApiService.inquireDepositor(bankcode, accountNumber);
         //필요한 데이터 뽑아내기(이름,계좌번호,bank)
         NHDepositorResponse nhDepositorResponse = nhAccountMapper.toNHDepositorResponse(depositor);
 
@@ -34,7 +38,7 @@ public class NHAccountService {
         }
 
         //finAccount 등록
-        Map<String, Object> openFinAccount = nhApiService.openFinAccountDirect("Y", birth, bankCode, accountNumber);
+        Map<String, Object> openFinAccount = nhApiService.openFinAccountDirect("Y", birth, bankcode, accountNumber);
         //필요한 데이터 뽑아내기(등록번호)
         String registrationNumber = nhAccountMapper.toNHFinAccountResponse(openFinAccount);
 
@@ -52,9 +56,12 @@ public class NHAccountService {
         nhAccountRepository.save(nhAccount);
     }
 
-    public String getBalance(User user, String bankCode, String accountNumber) {
+    public String getBalance(User user, NHDepositorRequest nhDepositorRequest) {
+        String bankcode = nhDepositorRequest.bankCode();
+        String accountNumber = nhDepositorRequest.accountNumber();
+
         //농협 open API로 계좌 조회
-        Map<String, Object> depositorBalance = nhApiService.inquireBalance(user.getName(), bankCode, accountNumber);
+        Map<String, Object> depositorBalance = nhApiService.inquireBalance(user.getName(), bankcode, accountNumber);
         //필요한 데이터 뽑아내기
         NHBalanceResponse nhBalanceResponse = nhAccountMapper.toNHBalanceResponse(depositorBalance);
 
