@@ -15,6 +15,8 @@ public record RegisterRequest(
         @NotNull
         String name,
         @NotNull
-        String role
+        String role,
+        @NotNull @Size(min = 8,max = 8)
+        String birth
 ) {
 }
