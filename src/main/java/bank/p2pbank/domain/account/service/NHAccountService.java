@@ -5,6 +5,7 @@ import bank.p2pbank.domain.account.dto.response.NHBalanceResponse;
 import bank.p2pbank.domain.account.dto.response.NHDepositorResponse;
 import bank.p2pbank.domain.account.entity.NHAccount;
 import bank.p2pbank.domain.account.repository.NHAccountRepository;
+import bank.p2pbank.domain.account.repository.NHAccountRepositoryCustom;
 import bank.p2pbank.domain.account.util.NHAccountMapper;
 import bank.p2pbank.domain.user.entity.User;
 import bank.p2pbank.global.exception.ApplicationException;
@@ -38,6 +39,10 @@ public class NHAccountService {
 
         if (!nhDepositorResponse.name().equals(user.getName())) {
             throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_USER_EXEPTION);
+        }
+
+        if (nhAccountRepository.existsByUserAndAccountNumber(user, accountNumber)) {
+            throw new ApplicationException(ErrorCode.ALREADY_REGISTERED_ACCOUNT);
         }
 
         //finAccount 등록
