@@ -84,7 +84,7 @@ public class TokenProvider {
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return claims.getBody().getExpiration().after(new Date());
         } catch (Exception e) {
-            throw new ApplicationException(ErrorCode.WRONG_TOKEN);
+            throw new ApplicationException(ErrorCode.WRONG_TOKEN_EXCEPTION);
         }
     }
 

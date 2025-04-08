@@ -41,8 +41,8 @@ public class NHAccountService {
             throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_USER_EXEPTION);
         }
 
-        if (nhAccountRepository.existsByUserAndAccountNumber(user, accountNumber)) {
-            throw new ApplicationException(ErrorCode.ALREADY_REGISTERED_ACCOUNT);
+        if (nhAccountRepository.existsByUserAndBankcodeAndAccountNumber(user, bankcode, accountNumber)) {
+            throw new ApplicationException(ErrorCode.ALREADY_REGISTERED_ACCOUNT_EXCEPTION);
         }
 
         //finAccount 등록
@@ -69,6 +69,10 @@ public class NHAccountService {
     public String getBalance(User user, NHDepositorRequest nhDepositorRequest) {
         String bankcode = nhDepositorRequest.bankcode();
         String accountNumber = nhDepositorRequest.accountNumber();
+
+        if (!nhAccountRepository.existsByUserAndBankcodeAndAccountNumber(user, bankcode, accountNumber)) {
+            throw new ApplicationException(ErrorCode.NOT_FOUND_ACCOUNT_EXCEPTION);
+        }
 
         //농협 open API로 계좌 조회
         Map<String, Object> depositorBalance = nhApiService.inquireBalance(user.getName(), bankcode, accountNumber);

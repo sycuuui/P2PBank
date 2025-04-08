@@ -22,14 +22,14 @@ public enum ErrorCode implements BaseResponseCode {
     WRONG_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, 3101, "유효하지 않은 비밀번호입니다."),
     WRONG_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3102, "유효하지 않은 토큰입니다."),
     LOGOUT_TOKEN_EXCEPTION(HttpStatus.UNAUTHORIZED, 3103, "로그아웃된 토큰입니다"),
-    WRONG_TOKEN(HttpStatus.UNAUTHORIZED, 3104, "유효하지 않은 토큰입니다."),
 
     // 4000: User Error (4100~)
 
     // 5000: Account Error (5100~)
     WRONG_DEPOSIT_USER_EXEPTION(HttpStatus.UNAUTHORIZED, 5100, "사용자와 계정주가 일치하지 않습니다."),
     WRONG_DEPOSIT_INVALID_VALUE_EXEPTION(HttpStatus.NOT_FOUND, 5101, "은행코드 혹은 계좌번호가 올바르게 입력되지 않았습니다."),
-    ALREADY_REGISTERED_ACCOUNT(HttpStatus.BAD_REQUEST, 5102, "이미 존재하는 계좌번호입니다.");
+    ALREADY_REGISTERED_ACCOUNT_EXCEPTION(HttpStatus.BAD_REQUEST, 5102, "이미 존재하는 계좌번호입니다."),
+    NOT_FOUND_ACCOUNT_EXCEPTION(HttpStatus.NOT_FOUND, 5103, "존재하지 않는 계좌번호입니다.");
 
     // 6000: Batch Error (6100~)
 
