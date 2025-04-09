@@ -42,6 +42,7 @@ public class NHAccountController {
     /**
      * 계좌 잔액 확인
      */
+    // TODO: 향후 실시간 조회가 필요 없는 영역은 Redis TTL 캐싱 적용 고려
     @GetMapping("/balance")
     public ApplicationResponse<String> inquireBalance(@RequestBody NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String balance = nhAccountService.getBalance(principalDetails.getUser(),nhDepositorRequest);
