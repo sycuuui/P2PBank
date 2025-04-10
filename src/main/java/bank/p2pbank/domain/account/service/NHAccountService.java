@@ -5,8 +5,8 @@ import bank.p2pbank.domain.account.dto.response.NHBalanceResponse;
 import bank.p2pbank.domain.account.dto.response.NHDepositorResponse;
 import bank.p2pbank.domain.account.entity.NHAccount;
 import bank.p2pbank.domain.account.repository.NHAccountRepository;
-import bank.p2pbank.domain.account.repository.NHAccountRepositoryCustom;
 import bank.p2pbank.domain.account.util.NHAccountMapper;
+import bank.p2pbank.domain.account.validator.NHAccountValidator;
 import bank.p2pbank.domain.user.entity.User;
 import bank.p2pbank.global.exception.ApplicationException;
 import bank.p2pbank.global.exception.ErrorCode;
@@ -25,6 +25,7 @@ public class NHAccountService {
     private final NHApiService nhApiService;
     private final NHAccountMapper nhAccountMapper;
     private final NHAccountRepository nhAccountRepository;
+    private final NHAccountValidator nhAccountValidator;
 
     @Transactional
     public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
@@ -37,13 +38,8 @@ public class NHAccountService {
         //필요한 데이터 뽑아내기(이름,계좌번호,bank)
         NHDepositorResponse nhDepositorResponse = nhAccountMapper.toNHDepositorResponse(depositor);
 
-        if (!nhDepositorResponse.name().equals(user.getName())) {
-            throw new ApplicationException(ErrorCode.WRONG_DEPOSIT_USER_EXEPTION);
-        }
-
-        if (nhAccountRepository.existsByUserAndBankcodeAndAccountNumber(user, bankcode, accountNumber)) {
-            throw new ApplicationException(ErrorCode.ALREADY_REGISTERED_ACCOUNT_EXCEPTION);
-        }
+        nhAccountValidator.validateOwnerName(nhDepositorResponse.name(), user.getName());
+        nhAccountValidator.validateDuplicateAccount(user, bankcode, accountNumber);
 
         //finAccount 등록
         Map<String, Object> openFinAccount = nhApiService.openFinAccountDirect("Y", birth, bankcode, accountNumber);
