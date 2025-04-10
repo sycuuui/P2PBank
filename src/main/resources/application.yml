@@ -1,7 +1,7 @@
 spring:
   data:
     redis:
-      host: p2pbank-redis
+      host: localhost
       port: 6379
 
   datasource:
@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  # (or create-drop during dev)
+      ddl-auto: update  # (or create-drop during dev)
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -25,3 +25,8 @@ spring:
 
 jwt:
   secret: asjdklfajskldgjlk1j23lk1j5ut893uaww98erun9813uvn49
+
+nhapi:
+  base-uri: "https://developers.nonghyup.com"
+  iscd: "002833"
+  accessToken: "8e6fbc14e07a31d2eb3cbdcda7315d04dc360a285b939f74af56b99d8f4b51a3"
