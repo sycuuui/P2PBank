@@ -4,6 +4,7 @@ import bank.p2pbank.domain.account.dto.request.NHDepositorRequest;
 import bank.p2pbank.domain.account.dto.response.NHBalanceResponse;
 import bank.p2pbank.domain.account.dto.response.NHDepositorResponse;
 import bank.p2pbank.domain.account.entity.NHAccount;
+import bank.p2pbank.domain.account.factory.NHAccountFactory;
 import bank.p2pbank.domain.account.repository.NHAccountRepository;
 import bank.p2pbank.domain.account.util.NHAccountMapper;
 import bank.p2pbank.domain.account.validator.NHAccountValidator;
@@ -26,6 +27,7 @@ public class NHAccountService {
     private final NHAccountMapper nhAccountMapper;
     private final NHAccountRepository nhAccountRepository;
     private final NHAccountValidator nhAccountValidator;
+    private final NHAccountFactory nhAccountFactory;
 
     @Transactional
     public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
@@ -51,13 +53,13 @@ public class NHAccountService {
         //필요한 데이터 뽑아내기(등록번호)
         String finAccount = nhAccountMapper.toCheckNHFinAccountResponse(checkOpenFinAccount);
 
-        NHAccount nhAccount = NHAccount.builder()
-                .bankCode(nhDepositorResponse.code())
-                .nhAccountNumber(nhDepositorResponse.accountNumber())
-                .finAccount(finAccount)
-                .registrationNumber(registrationNumber)
-                .user(user)
-                .build();
+        NHAccount nhAccount = nhAccountFactory.create(
+                nhDepositorResponse.accountNumber(),
+                nhDepositorResponse.code(),
+                finAccount,
+                registrationNumber,
+                user
+        );
 
         nhAccountRepository.save(nhAccount);
     }
