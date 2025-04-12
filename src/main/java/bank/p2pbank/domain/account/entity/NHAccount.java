@@ -2,6 +2,7 @@ package bank.p2pbank.domain.account.entity;
 
 import bank.p2pbank.global.common.BaseTimeEntity;
 import bank.p2pbank.domain.user.entity.User;
+import bank.p2pbank.global.security.encrytion.AES256Converter;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,6 +19,7 @@ public class NHAccount extends BaseTimeEntity {
     @Column(nullable = false, name = "id", columnDefinition = "bigint")
     private Long id;
 
+    @Convert(converter = AES256Converter.class)
     @Column(nullable = false, unique = true, length = 20)
     private String nhAccountNumber;
 

@@ -1,4 +1,4 @@
-package bank.p2pbank.global.util.crypto;
+package bank.p2pbank.global.security.encrytion;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -11,6 +11,7 @@ import bank.p2pbank.domain.account.validator.NHAccountValidator;
 import bank.p2pbank.domain.user.entity.User;
 import bank.p2pbank.global.exception.ApplicationException;
 import bank.p2pbank.global.exception.ErrorCode;
+import bank.p2pbank.global.security.encrytion.AESUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,10 @@ public class NHAccountService {
     private final NHAccountRepository nhAccountRepository;
     private final NHAccountValidator nhAccountValidator;
     private final NHAccountFactory nhAccountFactory;
+    private final AESUtil aesUtil;
 
     @Transactional
-    public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) {
+    public void registerAccount(User user, NHDepositorRequest nhDepositorRequest) throws Exception {
         String bankcode = nhDepositorRequest.bankcode();
         String accountNumber = nhDepositorRequest.accountNumber();
         String birth = user.getBirth();
@@ -53,8 +55,10 @@ public class NHAccountService {
         //필요한 데이터 뽑아내기(등록번호)
         String finAccount = nhAccountMapper.toCheckNHFinAccountResponse(checkOpenFinAccount);
 
+        String encryptedAccountNumber = aesUtil.encrypt(nhDepositorResponse.accountNumber());
+
         NHAccount nhAccount = nhAccountFactory.create(
-                nhDepositorResponse.accountNumber(),
+                encryptedAccountNumber,
                 nhDepositorResponse.code(),
                 finAccount,
                 registrationNumber,

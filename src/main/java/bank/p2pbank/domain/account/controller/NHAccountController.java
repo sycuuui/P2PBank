@@ -25,7 +25,7 @@ public class NHAccountController {
      * 예금주 조회 API 엔드포인트
      */
     @PostMapping("/depositor")
-    public ApplicationResponse<Void> saveDepositor(@RequestBody NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ApplicationResponse<Void> saveDepositor(@RequestBody NHDepositorRequest nhDepositorRequest, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         nhAccountService.registerAccount(principalDetails.getUser(), nhDepositorRequest);
         return ApplicationResponse.success(SuccessCode.NHACCOUNT_DEPOSITOR);
     }
