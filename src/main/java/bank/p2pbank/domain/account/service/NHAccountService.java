@@ -55,10 +55,8 @@ public class NHAccountService {
         //필요한 데이터 뽑아내기(등록번호)
         String finAccount = nhAccountMapper.toCheckNHFinAccountResponse(checkOpenFinAccount);
 
-        String encryptedAccountNumber = aesUtil.encrypt(nhDepositorResponse.accountNumber());
-
         NHAccount nhAccount = nhAccountFactory.create(
-                encryptedAccountNumber,
+                nhDepositorResponse.accountNumber(),
                 nhDepositorResponse.code(),
                 finAccount,
                 registrationNumber,
